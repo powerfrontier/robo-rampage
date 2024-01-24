@@ -6,9 +6,15 @@ const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var mouse_motion: Vector2 = Vector2.ZERO
 
+@onready var camera_pivot = $CameraPivot
+
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta):
+	handle_camera_rotation()
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -29,3 +35,16 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			mouse_motion = -event.relative * 0.01
+	elif event.is_action("ui_cancel"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func handle_camera_rotation() -> void:
+	rotate_y(mouse_motion.x)
+	camera_pivot.rotate_x(mouse_motion.y)
+	camera_pivot.rotation_degrees.x = clampf(camera_pivot.rotation_degrees.x, -90.0, 90.0)
+	mouse_motion = Vector2.ZERO
