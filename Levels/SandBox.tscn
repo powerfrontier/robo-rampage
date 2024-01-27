@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsnnr0kwwrp0l"]
+[gd_scene load_steps=9 format=3 uid="uid://dsnnr0kwwrp0l"]
 
 [ext_resource type="PackedScene" uid="uid://b6d3rca1aor8n" path="res://Player/player.tscn" id="1_7e1g3"]
 [ext_resource type="Script" path="res://Levels/Crosshair.gd" id="2_8ctca"]
@@ -16,6 +16,15 @@ sky = SubResource("Sky_ruw3m")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8b74u"]
+albedo_color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ld4q2"]
+albedo_color = Color(0.886275, 0.333333, 0.0823529, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxwjw"]
+albedo_color = Color(0.184314, 0.196078, 0.709804, 1)
+
 [node name="SandBox" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -29,6 +38,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(64, 1, 64)
+material = SubResource("StandardMaterial3D_8b74u")
 
 [node name="Player" parent="." instance=ExtResource("1_7e1g3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -43,3 +53,20 @@ grow_vertical = 2
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
 script = ExtResource("2_8ctca")
+
+[node name="Platform" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.059, 0.5, 2.028)
+use_collision = true
+material = SubResource("StandardMaterial3D_ld4q2")
+
+[node name="UNreachablePlatform" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.11512, 0.75, 2.028)
+use_collision = true
+size = Vector3(1, 1.5, 1)
+material = SubResource("StandardMaterial3D_ld4q2")
+
+[node name="Platform2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.522066, 1, 3.48727)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_mxwjw")
