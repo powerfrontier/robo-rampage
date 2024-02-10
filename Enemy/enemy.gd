@@ -28,8 +28,8 @@ func _physics_process(delta: float) -> void:
 		provoked = true
 	else:
 		provoked = false
+
 	if provoked:
-		
 		if distance <= attack_range:
 			animation_player.play("Attack")
 		
@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y -= gravity * delta
 		
 		var direction = global_position.direction_to(next_position)
-		print(direction)
+		#print(direction)
 
 		if direction:
 			look_at_target(direction)
@@ -55,7 +55,9 @@ func _physics_process(delta: float) -> void:
 func look_at_target(direction: Vector3) -> void:
 	var adjusted_direction = direction
 	adjusted_direction.y = 0
-	look_at(global_position + adjusted_direction, Vector3.UP, true)
+	if snappedf(direction.x, 0.0001) != 0.0:
+		#print("look at!!!")
+		look_at(global_position + adjusted_direction, Vector3.UP, true)
 
 func attack() -> void:
 	print("enemy attack!")
