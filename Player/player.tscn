@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6d3rca1aor8n"]
+[gd_scene load_steps=6 format=3 uid="uid://b6d3rca1aor8n"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_1tjvk"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_cir2d"]
+[ext_resource type="PackedScene" uid="uid://c4bg30caoqao3" path="res://Weapons/SMG.tscn" id="3_q2ebw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_chbuo"]
 
@@ -24,3 +25,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 top_level = true
 script = ExtResource("2_cir2d")
 speed = 44.0
+
+[node name="SMG" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_q2ebw")]
